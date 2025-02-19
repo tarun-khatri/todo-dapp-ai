@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import {
   Box,
   SpeedDial,
@@ -28,6 +29,9 @@ import {
 } from '@mui/icons-material';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
+
 const AISuggestions = ({ tasks }) => {
   const [suggestions, setSuggestions] = useState('');
   const [reminders, setReminders] = useState('');
@@ -50,7 +54,7 @@ const AISuggestions = ({ tasks }) => {
       try {
         const incompleteTasks = tasks.filter(t => !t.completed);
         if (incompleteTasks.length > 0) {
-          const response = await axios.post('http://localhost:5000/api/ai/quick-tip', 
+          const response = await axios.post(`${API_URL}/ai/quick-tip`, 
             { tasks: incompleteTasks },
             { 
               headers: { 
@@ -96,7 +100,7 @@ const AISuggestions = ({ tasks }) => {
     setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`http://localhost:5000/api/ai/${type}`, 
+      const response = await axios.post(`${API_URL}/ai/${type}`, 
         { tasks: tasks.filter(t => !t.completed) },
         { 
           headers: { 

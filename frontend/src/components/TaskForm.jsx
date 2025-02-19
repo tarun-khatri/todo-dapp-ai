@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { TextField, Button, Box, Paper } from '@mui/material';
 import axios from 'axios';
+import api from '../services/api';
+
 
 function TaskForm({ onTaskCreated }) {
   const [title, setTitle] = useState('');
@@ -14,8 +16,8 @@ function TaskForm({ onTaskCreated }) {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      await axios.post(
-        '/api/tasks', 
+      await api.post(
+        '/tasks', 
         { title, description, deadline, priority },
         { headers: { Authorization: `Bearer ${token}` } }
       );

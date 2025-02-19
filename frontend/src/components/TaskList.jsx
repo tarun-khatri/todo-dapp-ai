@@ -1,4 +1,5 @@
 import React, { useState, useMemo, useCallback } from 'react';
+import api from '../services/api';
 import {
   List,
   ListItem,
@@ -151,8 +152,8 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
     if (!currentTask) return;
     try {
       const token = localStorage.getItem('token');
-      await axios.put(
-        `/api/tasks/${currentTask._id}`,
+      await api.put(
+        `/tasks/${currentTask._id}`,
         {
           title: editTitle,
           description: editDescription,
@@ -171,7 +172,7 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
   const handleDelete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(`/api/tasks/${taskId}`, {
+      await api.delete(`/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onTaskUpdated();
@@ -225,8 +226,8 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
           const tx = await contract.methods.completeTask(taskHash)
             .send({ from: userAccount });
           
-          await axios.put(
-            `/api/tasks/${task._id}`,
+          await api.put(
+            `/tasks/${task._id}`,
             { 
               completed: true,
               blockchainTaskHash: tx.transactionHash,

@@ -6,6 +6,7 @@ import TaskList from '../components/TaskList';
 import TaskForm from '../components/TaskForm';
 import TaskCompletionBar from '../components/TaskCompletionBar';
 import AISuggestions from '../components/AISuggestions';
+import api from '../services/api';
 
 function Home() {
   const { address, isConnected } = useAccount();
@@ -21,7 +22,7 @@ function Home() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await axios.get('/api/tasks', {
+      const res = await api.get('/tasks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(Array.isArray(res.data) ? res.data : []);
@@ -36,8 +37,8 @@ function Home() {
   useEffect(() => {
     if (isConnected && address) {
       setTasks([]);
-      axios
-        .post('/api/auth/login', { walletAddress: address })
+      api
+        .post('/auth/login', { walletAddress: address })
         .then((res) => {
           localStorage.setItem('token', res.data.token);
           fetchTasks();
