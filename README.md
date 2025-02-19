@@ -1,7 +1,3 @@
-Below is a complete README content for your project. You can copy this into your `README.md` file.
-
----
-
 ```markdown
 # Decentralized To-Do Application with AI Agent Integration
 
