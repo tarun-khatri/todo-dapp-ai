@@ -54,7 +54,7 @@ const AISuggestions = ({ tasks }) => {
       try {
         const incompleteTasks = tasks.filter(t => !t.completed);
         if (incompleteTasks.length > 0) {
-          const response = await axios.post(`${API_URL}/ai/quick-tip`, 
+          const response = await axios.post(`${API_URL}/api/ai/quick-tip`, 
             { tasks: incompleteTasks },
             { 
               headers: { 
@@ -100,7 +100,7 @@ const AISuggestions = ({ tasks }) => {
     setError('');
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(`${API_URL}/ai/${type}`, 
+      const response = await axios.post(`${API_URL}/api/ai/${type}`, 
         { tasks: tasks.filter(t => !t.completed) },
         { 
           headers: { 

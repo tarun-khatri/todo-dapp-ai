@@ -22,7 +22,7 @@ function Home() {
     setLoading(true);
     try {
       const token = localStorage.getItem('token');
-      const res = await api.get('/tasks', {
+      const res = await api.get('/api/tasks', {
         headers: { Authorization: `Bearer ${token}` },
       });
       setTasks(Array.isArray(res.data) ? res.data : []);
@@ -38,7 +38,7 @@ function Home() {
     if (isConnected && address) {
       setTasks([]);
       api
-        .post('/auth/login', { walletAddress: address })
+        .post('/api/auth/login', { walletAddress: address })
         .then((res) => {
           localStorage.setItem('token', res.data.token);
           fetchTasks();

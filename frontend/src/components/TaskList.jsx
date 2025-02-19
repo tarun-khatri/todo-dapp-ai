@@ -153,7 +153,7 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
     try {
       const token = localStorage.getItem('token');
       await api.put(
-        `/tasks/${currentTask._id}`,
+        `/api/tasks/${currentTask._id}`,
         {
           title: editTitle,
           description: editDescription,
@@ -172,7 +172,7 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
   const handleDelete = async (taskId) => {
     try {
       const token = localStorage.getItem('token');
-      await api.delete(`/tasks/${taskId}`, {
+      await api.delete(`/api/tasks/${taskId}`, {
         headers: { Authorization: `Bearer ${token}` },
       });
       onTaskUpdated();
@@ -227,7 +227,7 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
             .send({ from: userAccount });
           
           await api.put(
-            `/tasks/${task._id}`,
+            `/api/tasks/${task._id}`,
             { 
               completed: true,
               blockchainTaskHash: tx.transactionHash,

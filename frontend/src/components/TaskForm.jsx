@@ -17,7 +17,7 @@ function TaskForm({ onTaskCreated }) {
     try {
       const token = localStorage.getItem('token');
       await api.post(
-        '/tasks', 
+        '/api/tasks', 
         { title, description, deadline, priority },
         { headers: { Authorization: `Bearer ${token}` } }
       );
