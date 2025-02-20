@@ -385,24 +385,18 @@ function TaskList({ tasks = [], onTaskUpdated, loading }) {
                   </Box>
                 }
               />
-              <ListItemSecondaryAction>
-                <IconButton
-                  edge="end"
-                  onClick={() => handleDelete(task._id)}
-                  disabled={Boolean(task.isVerifiedOnChain)}
-                  sx={{ display: task.isVerifiedOnChain ? 'none' : 'inline-flex' }}
-                >
-                  <DeleteIcon />
-                </IconButton>
-                <IconButton
-                  edge="end"
-                  onClick={() => openEditDialog(task)}
-                  disabled={Boolean(task.isVerifiedOnChain)}
-                  sx={{ display: task.isVerifiedOnChain ? 'none' : 'inline-flex' }}
-                >
-                  <EditIcon />
-                </IconButton>
-              </ListItemSecondaryAction>
+<ListItemSecondaryAction>
+  {!(task.completed || task.isVerifiedOnChain) && (
+    <>
+      <IconButton edge="end" onClick={() => handleDelete(task._id)}>
+        <DeleteIcon />
+      </IconButton>
+      <IconButton edge="end" onClick={() => openEditDialog(task)}>
+        <EditIcon />
+      </IconButton>
+    </>
+  )}
+</ListItemSecondaryAction>
             </ListItem>
           ))}
         </List>

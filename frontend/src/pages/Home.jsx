@@ -33,7 +33,7 @@ function Home() {
     setLoading(false);
   };
 
-  // When wallet changes, re-log in and fetch tasks.
+  // When wallet changes, log in and fetch tasks; if disconnected, clear tasks instantly.
   useEffect(() => {
     if (isConnected && address) {
       setTasks([]);
@@ -46,6 +46,9 @@ function Home() {
         .catch((err) => {
           console.error('Login error:', err);
         });
+    } else {
+      // Immediately clear tasks when the wallet disconnects.
+      setTasks([]);
     }
   }, [address, isConnected]);
 
@@ -58,7 +61,6 @@ function Home() {
         </Button>
       </Box>
 
-      {/* Place the Task Completion Bar at a prominent position */}
       <TaskCompletionBar tasks={tasks} />
 
       <AISuggestions tasks={tasks} />
